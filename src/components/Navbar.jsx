@@ -1,7 +1,13 @@
-// Navbar.jsx
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <nav className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,12 +50,12 @@ function Navbar() {
             </div>
           </div>
           <div className="md:hidden">
-            {/* Mobile menu button */}
             <button
               type="button"
               className="bg-purple-700 inline-flex items-center justify-center p-2 rounded-md text-white hover:text-yellow-300 hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-purple-800 focus:ring-white"
               aria-controls="mobile-menu"
-              aria-expanded="false"
+              aria-expanded={isOpen}
+              onClick={toggleMenu}
             >
               <span className="sr-only">Open main menu</span>
               {/* Icon for menu button */}
@@ -74,40 +80,42 @@ function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div className="md:hidden" id="mobile-menu">
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-yellow-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-                : 'text-white hover:text-yellow-300 block px-3 py-2 rounded-md text-base font-medium'
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-yellow-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-                : 'text-white hover:text-yellow-300 block px-3 py-2 rounded-md text-base font-medium'
-            }
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-yellow-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-                : 'text-white hover:text-yellow-300 block px-3 py-2 rounded-md text-base font-medium'
-            }
-          >
-            Contact
-          </NavLink>
+      {isOpen && (
+        <div className="md:hidden" id="mobile-menu">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-yellow-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
+                  : 'text-white hover:text-yellow-300 block px-3 py-2 rounded-md text-base font-medium'
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-yellow-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
+                  : 'text-white hover:text-yellow-300 block px-3 py-2 rounded-md text-base font-medium'
+              }
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-yellow-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
+                  : 'text-white hover:text-yellow-300 block px-3 py-2 rounded-md text-base font-medium'
+              }
+            >
+              Contact
+            </NavLink>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
